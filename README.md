@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="./banner.svg" alt="LZCWBCGS" />
-</div>
+### 👋 你好，我是 LZCWBCGS
 
 ---
 
