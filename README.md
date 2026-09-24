@@ -1,19 +1,25 @@
 <div align="center">
-  <img src="./banner.svg" alt="banner" />
+  <img src="./banner.svg" alt="LZCWBCGS" />
 </div>
 
 ---
 
-### 🧑‍💻 About
+### 🧑‍💻 关于我
 
-```go
-package main
+Go 后端开发，白天写业务，晚上造轮子。
 
-import "fmt"
+---
 
-func main() {
-	fmt.Println("我是 LZCWBCGS")
-	fmt.Println("语言：Go（主力）")
-	fmt.Println("状态：白天写业务，晚上造轮子")
-	fmt.Println("信条：能跑就行 —— 然后花三周把它改成能优雅地跑")
-}
+### 🛠 技术栈
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=go,python,rust,typescript,react,nodejs,docker,kubernetes,linux,git,redis,postgresql,mongodb,graphql,vim,neovim,arch,aws,githubactions,nginx,prometheus,grafana,terraform&theme=omni&perline=12" alt="tech stack" />
+</p>
+
+---
+
+### 📫 联系方式
+
+- GitHub: [@Lzcwbcgs](https://github.com/Lzcwbcgs)
+
+<p align="center"><sub>⚡ 屏幕闪烁不是 bug，是氛围。</sub></p>
