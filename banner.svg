@@ -1,30 +1,115 @@
-<svg width="620" height="120" xmlns="http://www.w3.org/2000/svg">
-<defs>
-  <!-- 彩虹渐变 青→紫→粉→黄 -->
-  <linearGradient id="cyberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#00f0ff"/>
-    <stop offset="33%" stop-color="#7b00ff"/>
-    <stop offset="66%" stop-color="#ff2bd6"/>
-    <stop offset="100%" stop-color="#ffe000"/>
-  </linearGradient>
-  <!-- 色差色散滤镜 赛博 glitch 效果 -->
-  <filter id="ca" x="-20%" y="-20%" width="140%" height="140%">
-    <feOffset in="SourceGraphic" dx="-1.5" dy="0" result="r"/>
-    <feOffset in="SourceGraphic" dx="1.5" dy="0" result="b"/>
-    <feMerge>
-      <feMergeNode in="r"/>
-      <feMergeNode in="SourceGraphic"/>
-      <feMergeNode in="b"/>
-    </feMerge>
-  </filter>
-</defs>
-<!-- 深色背景+像素网格 -->
-<rect width="100%" height="100%" fill="#080912"/>
-<pattern id="grid" width="6" height="6" patternUnits="userSpaceOnUse">
-  <path d="M6 0 L0 0 L0 6" fill="none" stroke="#101828" stroke-width="0.6"/>
-</pattern>
-<rect width="100%" height="100%" fill="url(#grid)" />
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="180" viewBox="0 0 900 180">
+  <defs>
+    <!-- 背景像素网格 -->
+    <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#07070d"/>
+      <rect width="1" height="1" fill="#12121f"/>
+    </pattern>
 
-<!-- 文字，改这里的 YOUR_NAME 为你的名字，像素等宽字体 -->
-<text x="310" y="74" text-anchor="middle" font-family="'Courier New',monospace" font-size="46" font-weight="bold" letter-spacing="3" fill="url(#cyberGrad)" filter="url(#ca)" style="image-rendering:pixelated;">Lzcwbcgs</text>
+    <!-- 主文字渐变：红→青→白→紫→红，循环流动 -->
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#ff2a6d"/>
+      <stop offset="25%"  stop-color="#05d9e8"/>
+      <stop offset="50%"  stop-color="#e0fbfc"/>
+      <stop offset="75%"  stop-color="#7b2dff"/>
+      <stop offset="100%" stop-color="#ff2a6d"/>
+      <animateTransform attributeName="gradientTransform"
+                        type="translate" values="0 0; -1 0; 0 0"
+                        dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- 霓虹发光 -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- 扫描线 -->
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="#000" opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <!-- 底 -->
+  <rect width="900" height="180" fill="#07070d"/>
+  <rect width="900" height="180" fill="url(#grid)"/>
+
+  <!-- 整体色相轮回：渐变在流，整体色调也在转，形成"颜色从A渐变到B再变回来"的死循环 -->
+  <g style="animation: hue 8s linear infinite;">
+
+    <!-- Glitch 残影层（错位复制，偶尔抽一下） -->
+    <text x="450" y="95" class="glitch1">LZCWBCGS</text>
+    <text x="450" y="95" class="glitch2">LZCWBCGS</text>
+
+    <!-- 主体文字：像素风 + 渐变填充 + 发光 + 随机闪断 -->
+    <text x="450" y="95" class="title">LZCWBCGS</text>
+
+    <!-- 副标题 -->
+    <text x="450" y="140" class="sub">GO · BUILDING · BREAKING · REBUILDING</text>
+  </g>
+
+  <!-- 扫描线从上往下扫 -->
+  <rect width="900" height="180" fill="url(#scan)" class="scanline"/>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+
+    .title {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: 54px; font-weight: 900; text-anchor: middle;
+      fill: url(#grad); filter: url(#glow);
+      animation: flicker 3s infinite;
+    }
+    .sub {
+      font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700;
+      text-anchor: middle; fill: #05d9e8; letter-spacing: 6px;
+    }
+    .glitch1 {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: 54px; font-weight: 900; text-anchor: middle;
+      fill: #ff2a6d; opacity: 0; animation: g1 4s infinite;
+    }
+    .glitch2 {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: 54px; font-weight: 900; text-anchor: middle;
+      fill: #05d9e8; opacity: 0; animation: g2 4s infinite;
+    }
+    .scanline { animation: sweep 2.5s linear infinite; }
+
+    /* 色相整体轮回 */
+    @keyframes hue {
+      0%   { filter: hue-rotate(0deg) url(#glow); }
+      100% { filter: hue-rotate(360deg) url(#glow); }
+    }
+    /* 随机闪断：亮-灭-亮-微闪-亮，模拟老显示器接触不良 */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      3%       { opacity: .7; }
+      5%       { opacity: 1; }
+      48%      { opacity: 1; }
+      49%      { opacity: .6; }
+      50%      { opacity: 1; }
+      72%      { opacity: 1; }
+      73%      { opacity: .85; }
+      74%      { opacity: 1; }
+    }
+    /* 残影横向抽搐 */
+    @keyframes g1 {
+      0%, 92%, 100% { opacity: 0; transform: translate(0); }
+      93%           { opacity: .8; transform: translate(-6px, 1px); }
+      95%           { opacity: 0; }
+      96%           { opacity: .6; transform: translate(5px, -1px); }
+      97%           { opacity: 0; }
+    }
+    @keyframes g2 {
+      0%, 95%, 100% { opacity: 0; transform: translate(0); }
+      96%           { opacity: .7; transform: translate(5px, 1px); }
+      98%           { opacity: 0; }
+      99%           { opacity: .5; transform: translate(-4px, -1px); }
+    }
+    @keyframes sweep {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+  </style>
 </svg>
