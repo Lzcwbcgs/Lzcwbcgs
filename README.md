@@ -1,4 +1,4 @@
-### 👋 你好，我是 LZCWBCGS
+### 👋 你好，我是 Lzcwbcgs
 
 ---
 
